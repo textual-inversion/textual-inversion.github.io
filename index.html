@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Textual Inversions for personalized Text-to-Image generation">
+  <meta name="keywords" content="Textual Inversion, Text-to-Image, Personalized Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion</title>
+
+   Global site tag (gtag.js) - Google Analytics
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5ZVQZ7NHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y5ZVQZ7NHC');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://rinongal.github.io/">Rinon Gal</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://yuval-alaluf.github.io/">Yuval Alaluf</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://research.nvidia.com/person/yuval-atzmon">Yuval Atzmon</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://orpatashnik.github.io/">Or Patashnik</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.cs.tau.ac.il/~amberman/">Amit H. Bermano</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://research.nvidia.com/person/gal-chechik">Gal Chechik</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.tau.ac.il/~dcor/">Daniel Cohen-Or</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Tel Aviv University,</span>
+            <span class="author-block"><sup>2</sup>NVIDIA</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+<!--              <span class="link-block">-->
+<!--                <a href="https://arxiv.org/abs/2108.00946"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="fas fa-file-pdf"></i>-->
+<!--                  </span>-->
+<!--                  <span>Paper</span>-->
+<!--                </a>-->
+<!--              </span>-->
+<!--              <span class="link-block">-->
+<!--                <a href="https://arxiv.org/abs/2108.00946"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="ai ai-arxiv"></i>-->
+<!--                  </span>-->
+<!--                  <span>arXiv</span>-->
+<!--                </a>-->
+<!--              </span>-->
+
+              <!-- Video Link. -->
+<!--              <span class="link-block">-->
+<!--                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="fab fa-youtube"></i>-->
+<!--                  </span>-->
+<!--                  <span>Video</span>-->
+<!--                </a>-->
+<!--              </span>-->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/rinongal/textual_inversion"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+              <!-- Colab Demo Link. -->
+<!--              <span class="link-block">-->
+<!--                <a href="http://colab.research.google.com/github/rinongal/stylegan-nada/blob/main/stylegan_nada.ipynb"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="fas fa-infinity"></i>-->
+<!--                  </span>-->
+<!--                  <span>Colab</span>-->
+<!--                </a>-->
+<!--              </span>-->
+              <!-- Replicate Demo Link. -->
+<!--              <span class="link-block">-->
+<!--                <a href="https://replicate.com/rinongal/stylegan-nada"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--&lt;!&ndash;                  <span>R </span>&ndash;&gt;-->
+<!--                  <span class="icon">-->
+<!--                      <i class="fas fa-play"></i>-->
+<!--                  </span>-->
+<!--                  <span>Demo</span>-->
+<!--                </a>-->
+<!--              </span>-->
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/editing/teaser.JPG"
+                   alt="Teaser."/>
+      <h2 class="subtitle has-text-centered">
+        We learn to generate specific concepts, like personal objects or artistic styles, by describing them using new "words" in the embedding space of pre-trained text-to-image models. These can be used in new sentences, just like any other word.
+        <br><br> Our work builds on the publicly available <a href="https://github.com/CompVis/latent-diffusion">Latent Diffusion Models</a>
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="subtitle has-text-centered">Here are some more generated examples. We hope they are cool enough to convince you it's worth reading on :)</h2>
+      <div id="results-carousel-face" class="carousel results-carousel">
+        <div class="item item-puppet">
+          <div class="carousel-content">
+            <img src="static/images/editing/puppet.JPG"
+                   alt="Puppet."/>
+          </div>
+        </div>
+        <div class="item item-round_bird">
+          <div class="carousel-content">
+            <img src="static/images/editing/round_bird.JPG"
+                   alt="Round-bird."/>
+          </div>
+        </div>
+        <div class="item item-furby">
+          <div class="carousel-content">
+            <img src="static/images/editing/furby.JPG"
+                   alt="Furby."/>
+          </div>
+        </div>
+        <div class="item item-bowl">
+          <div class="carousel-content">
+            <img src="static/images/editing/bowl.JPG"
+                   alt="bowl."/>
+          </div>
+        </div>
+        <div class="item item-child-drawing">
+          <div class="carousel-content">
+            <img src="static/images/editing/child_drawing.JPG"
+                   alt="Child Drawing."/>
+          </div>
+        </div>
+        <div class="item item-red_teapot">
+          <div class="carousel-content">
+            <img src="static/images/editing/red_teapot.JPG"
+                   alt="Red Teapot."/>
+          </div>
+        </div>
+        <div class="item item-fluffy">
+          <div class="carousel-content">
+            <img src="static/images/editing/fluffy.JPG"
+                   alt="Fluffy."/>
+          </div>
+        </div>
+        <div class="item item-thin_bird">
+          <div class="carousel-content">
+            <img src="static/images/editing/thin_bird.JPG"
+                   alt="Thin Bird."/>
+          </div>
+        </div>
+        <div class="item item-elephant">
+          <div class="carousel-content">
+            <img src="static/images/editing/elephant.JPG"
+                   alt="Elephant."/>
+          </div>
+        </div>
+        <div class="item item-teapot">
+          <div class="carousel-content">
+            <img src="static/images/editing/colorful_teapot.JPG"
+                   alt="Teapot."/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Text-to-image models offer unprecedented freedom to guide creation through natural language.
+            Yet, it is unclear how such freedom can be exercised to generate images of specific unique concepts, modify their appearance, or compose them in new roles and novel scenes.
+            In other words, we ask: how can we use language-guided models to turn <i>our</i> cat into a painting, or imagine a new product based on <i>our</i> favorite toy?
+            Here we present a simple approach that allows such creative freedom.
+          </p>
+          <p>
+            Using only 3-5 images of a user-provided concept, like an object or a style, we learn to represent it through new "words" in the embedding space of a frozen text-to-image model.
+            These "words" can be composed into natural language sentences, guiding <i>personalized</i> creation in an intuitive way.
+            Notably, we find evidence that a <i>single</i> word embedding is sufficient for capturing unique and varied concepts.
+          </p>
+          <p>
+            We compare our approach to a wide range of baselines, and demonstrate that it can more faithfully portray the concepts across a range of applications and tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <!--/ Architecture. -->
+        <div class="section-title">
+          <h2 class="title is-3 is-centered">How does it work?</h2>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="publication-img">
+              <img id="architecture" src="static/images/training/training.JPG"/>
+            </div>
+          </div>
+        </div>
+        <p>
+          In the text-encoding stage of most text-to-image models, the first stage involves converting the prompt into a numerical representation. This is typically done by converting the words into tokens, each equivalent to an entry in the model's dictionary.
+          These entries are then converted into an "embedding" - a continuous vector representation for the specific token. These embeddings are usually learned as part of the training process. In our work, we find new embeddings that represent specific, user-provided visual concepts. These embeddings are then linked to new pseudo-words, which can be incorporated into new sentences like any other word.
+          In a sense, we are performing inversion into the text-embedding space of the frozen model. We're calling the process 'Textual Inversion'.
+        </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <h2 class="title is-3">Learning to represent styles</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <!-- Cross domain. -->
+      <div class="column">
+        <div class="content">
+
+          <p>
+            Our method can be used to represent a wide array of concepts - including visual artistic styles. In a sense, we can learn a pseudo-word that represents a specific artist or a new artistic movement, and mimic it in future creations. <br>
+          </p>
+            <div class="publication-img">
+              <img id="style_transfer" src="static/images/style/style.JPG"/>
+            </div>
+          <p>Image credits: <a href="https://www.deviantart.com/qinni">@QinniArt</a> (top), <a href="https://commons.wikimedia.org/wiki/User:Deevad">@David Revoy</a> (bottom). Image reproduction authorized for non-commercial use only.</p>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <br>
+        <h2 class="title is-3">Reducing Biases</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <!-- Cross domain. -->
+      <div class="column">
+        <div class="content">
+
+          <p>
+            Text-to-image models suffer from biases inherited from the training data.
+            Rather than learning a new concept, we can find new embeddings for 'biased' concepts. These are found using small datasets, so we can easily curate the data and ensure a fairer representation.
+            For example, here we replace the model's notion of 'Doctor', with a new, more inclusive word.  <br>
+          </p>
+            <div class="publication-img">
+              <img id="bias" src="static/images/bias/bias.JPG"/>
+              <br><br>
+            </div>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <h2 class="title is-3">Compositions</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <!-- Cross domain. -->
+      <div class="column">
+        <div class="content">
+
+          <p>
+            We can combine the new words in order to create scenes that draw on both concepts. Unfortunately, this doesn't yet work for relational prompts, so we can't show you our cat on a fishing trip with our clock. <br>
+          </p>
+            <div class="publication-img">
+              <img id="compositions" src="static/images/compositions/compositions.JPG"/>
+            </div>
+          <p>Image credits: <a href="https://www.deviantart.com/qinni">@QinniArt</a> (left), <a href="https://www.pinkstripeysocks.com/p/about.htm">@Leslie Manlapig</a> (right). Reproductions authorized for non-commercial & non-print use.</p>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <br>
+        <h2 class="title is-3">Downstream Models</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <!-- Cross domain. -->
+      <div class="column">
+        <div class="content">
+
+          <p>
+            Our pseudo-words work with downstream models. For example, if you're tired of your old photographs, you can spice them up by inserting some new friends using <a href="https://omriavrahami.com/blended-latent-diffusion-page/">Blended Latent Diffusion</a>: <br>
+          </p>
+            <div class="publication-img">
+              <img id="blended" src="static/images/blended/blended_diffusion.JPG"/>
+               <br>
+               <br>
+            </div>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <p>If you find our work useful, please cite our paper:</p>
+    <pre><code>Coming soon!!</code></pre>
+  </div>
+</section>
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+<!--      <a class="icon-link"-->
+<!--         href="https://arxiv.org/abs/2108.00946">-->
+<!--        <i class="fas fa-file-pdf"></i>-->
+<!--      </a>-->
+      <a class="icon-link" href="https://github.com/rinongal/textual_inversion" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
